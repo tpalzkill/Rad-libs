@@ -27,8 +27,9 @@ $numeroTres.done(function(data) {
   if ($numeroTres.status !== 200) {
     return;
   }
-
-  console.log(data);
+let inspiration = Object.values(data);
+let actualQuote = inspiration[1];
+console.log(actualQuote.body);
 });
 let $numeroQuat = $.getJSON('http://ron-swanson-quotes.herokuapp.com/v2/quotes');
 
