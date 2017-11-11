@@ -3,9 +3,8 @@
 
 <head>
   <meta charset="utf-8">
-  <link href="stylesheet.css" type="text/css" rel="stylesheet" />
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-  <script src="index.js"></script>
+
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rad-Libs</title>
 </head>
@@ -13,9 +12,9 @@
 <body>
   <header>
     <nav class="navagator" role="navigation">
-      <div class="nav-wrapper container"><a id="logo-container" href="index.html" class="brand-logo lime-text font"><b>Rad-Libs</b></a>
+      <div class="nav-wrapper container"><a id="logo-container" href="landing.html" class="brand-logo lime-text font"><b>Rad-Libs</b></a>
         <ul class="right hide-on-med-and-down">
-          <li><a class="pretty font" href="index.html">Get random Rad-Lib!</a></li>
+          <li><a class="pretty font" href="landing.html">Get random Rad-Lib!</a></li>
         </ul>
       </div>
     </nav>
@@ -29,16 +28,15 @@
           <form class="col s12">
             <div class="row">
               <div class="input-field">
-                <select id='selected'>
+                <select id='sourceSelector'>
             <option class="black-text" value="default" disabled selected>Choose your text source</option>
             <option value="Random">Random</option>
-            <option value="inspiration">Inspirational Quote</option>
+            <option value="inspiration" >Inspirational Quote</option>
             <option value="dad">Dad Joke</option>
             <option value="ronSwan">Ron Swanson Quote</option>
+            <option value="Trump">Trump Quote</option>
           </select>
-          <div class="button-wrapper center">
-              <button class="center-align btn-large waves-effect font pretty clicky" type="submit"> Get RAD-LIB</button>
-          <div>
+              <input type="submit" id="btnGet" class="center btn-large waves-effect font pretty" value="Get RadLib"/>
           </form>
         </div>
       </div>
@@ -53,7 +51,10 @@
       </div>
     </div>
   </footer>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="index.js"></script>
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <link href="stylesheet.css" type="text/css" rel="stylesheet" />
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
   <!-- Compiled and minified JavaScript -->
