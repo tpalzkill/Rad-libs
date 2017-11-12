@@ -1,4 +1,14 @@
 let selection = [];
+let wordRemover = function(string) {
+  let sampleSplit = string.split(' ');
+  let chopped = [];
+  for (let i = 0; i < 6; i++) {
+    let randomNumber = Math.floor(Math.random() * sampleSplit.length);
+    chopped.push(sampleSplit.splice(randomNumber, 1, '______'));
+    i++;
+  }
+  return sampleSplit.join(' ')
+};
 $("#btnGet").click(function(event) {
   event.preventDefault();
   let butthead = $('#sourceSelector option:selected').text();
@@ -15,8 +25,8 @@ $("#btnGet").click(function(event) {
 
       let trump = Object.values(data);
       console.log(trump[0]);
-      response.push(trump[0]);
-      $("#quoteHere").html(trump[0]);
+      let trumpQuote = wordRemover(trump[0]);
+      $("#quoteHere").html(trumpQuote);
     });
   } else if (butthead === "Inspirational Quote") {
     let inspirational = $.getJSON('https://favqs.com/api/qotd');
@@ -30,7 +40,8 @@ $("#btnGet").click(function(event) {
       let actualQuote = inspiration[1];
       console.log(actualQuote.body);
       response.push(actualQuote.body);
-      $("#quoteHere").html(actualQuote.body);
+      let inspirationalQuote = wordRemover(actualQuote.body);
+      $("#quoteHere").html(inspirationalQuote);
     });
   } else if (butthead === "Dad Joke") {
     let hazDadJoke = $.getJSON('https://icanhazdadjoke.com/');
@@ -43,7 +54,8 @@ $("#btnGet").click(function(event) {
       let dadJoke = Object.values(data);
       console.log(dadJoke[1]);
       response.push(dadJoke[1]);
-      $("#quoteHere").html(dadJoke[1]);
+      let papaJoke = wordRemover(dadJoke[1]);
+      $("#quoteHere").html(papaJoke);
     });
   } else if (butthead === "Ron Swanson Quote") {
     let ronSwan = $.getJSON('http://ron-swanson-quotes.herokuapp.com/v2/quotes');
@@ -52,10 +64,10 @@ $("#btnGet").click(function(event) {
       if (ronSwan.status !== 200) {
         return;
       }
-
       console.log(data[0]);
       response.push(data[0]);
-      $("#quoteHere").html(data[0]);
+      let swanson = wordRemover(data[0]);
+      $("#quoteHere").html(swanson);
     });
   }
 
