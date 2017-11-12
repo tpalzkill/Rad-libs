@@ -23,7 +23,7 @@ background: linear-gradient(to right, #a8e063, #56ab2f); /* W3C, IE 10+/ Edge, F
      flex: 1 0 auto;
  }
 .font {
-  font-family: arial;
+  font-family: Helvetica;
 }
 .footer {
   font-style: oblique;
@@ -39,5 +39,23 @@ footer {
   background: #4B79A1;  /* fallback for old browsers */
 background: -webkit-linear-gradient(to right, #283E51, #4B79A1);  /* Chrome 10-25, Safari 5.1-6 */
 background: linear-gradient(to right, #283E51, #4B79A1); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.linear-wipe {
+  text-align: center;
 
+  background: linear-gradient(to right, #FFF 20%, #FF0 40%, #FF0 60%, #FFF 80%);
+  background-size: 200% auto;
+
+  color: #000;
+  background-clip: text;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: shine 1s linear infinite;
+  @keyframes shine {
+    to {
+      background-position: 200% center;
+    }
+  }
 }

@@ -9,5 +9,7 @@ The user would then get a form back with the textfield blanks having the placeho
 Anywho when the user submits the form it should return them the text as a string concatenated and presented nicely.
 Id also like to implement a feature where the user can use checkboxes and text fields to set all nouns to a set word, or verbs to a set word etc, etc.
 
+it should remove all instances of a selected word. ignore articles and pronouns.
+
 Stretch: Allow user to post their creations to social media (as an image????)
 Far Stretch: let users choose which words they want to make the blanks.
