@@ -11,53 +11,48 @@ let wordRemover = function(string) {
 };
 $("#btnGet").click(function(event) {
   event.preventDefault();
-  let butthead = $('#sourceSelector option:selected').text();
+  let selectOption = $('#sourceSelector option:selected').text();
   selection = [];
-  selection.push(butthead);
+  selection.push(selectOption);
   let response = [];
-  if (butthead === "Trump Quote") {
+  if (selectOption === "Trump Quote") {
     let trumpThink = $.getJSON('https://api.whatdoestrumpthink.com/api/v1/quotes/random');
 
     trumpThink.done(function(data) {
       if (trumpThink.status !== 200) {
         return;
       }
-
       let trump = Object.values(data);
-      console.log(trump[0]);
+      response.push(trump[0]);
       let trumpQuote = wordRemover(trump[0]);
       $("#quoteHere").html(trumpQuote);
     });
-  } else if (butthead === "Inspirational Quote") {
+  } else if (selectOption === "Inspirational Quote") {
     let inspirational = $.getJSON('https://favqs.com/api/qotd');
 
     inspirational.done(function(data) {
       if (inspirational.status !== 200) {
         return;
       }
-
       let inspiration = Object.values(data);
       let actualQuote = inspiration[1];
-      console.log(actualQuote.body);
       response.push(actualQuote.body);
       let inspirationalQuote = wordRemover(actualQuote.body);
       $("#quoteHere").html(inspirationalQuote);
     });
-  } else if (butthead === "Dad Joke") {
+  } else if (selectOption === "Dad Joke") {
     let hazDadJoke = $.getJSON('https://icanhazdadjoke.com/');
 
     hazDadJoke.done(function(data) {
       if (hazDadJoke.status !== 200) {
         return;
       }
-
       let dadJoke = Object.values(data);
-      console.log(dadJoke[1]);
       response.push(dadJoke[1]);
       let papaJoke = wordRemover(dadJoke[1]);
       $("#quoteHere").html(papaJoke);
     });
-  } else if (butthead === "Ron Swanson Quote") {
+  } else if (selectOption === "Ron Swanson Quote") {
     let ronSwan = $.getJSON('http://ron-swanson-quotes.herokuapp.com/v2/quotes');
 
     ronSwan.done(function(data) {
@@ -71,7 +66,6 @@ $("#btnGet").click(function(event) {
     });
   }
 
-
-  let newForm = "<div class='section v-align-center'><div class='container'><h3 class= 'lime-text text-darken-2' id='quoteHere' ></h3></div></div>"
+  let newForm = "<div class='section v-align-center z-depth-1 roundIt'><div class='container'><div class='row'><div class='col-s10'><h3 class= 'lime-text text-darken-2 font' id='quoteHere' ></h3></div></div></div></div>"
   $("form").replaceWith(newForm);
 });
