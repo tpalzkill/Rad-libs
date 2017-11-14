@@ -8,25 +8,30 @@ let selection = [];
 //   console.log(data);
 // });
 // ITS GOOGLE BITCH AIzaSyDmNY9yZNIBbwL3-RydEpw_MHZNnxfDWRI
-let stringy = JSON.stringify("welcome to the thunderdome bitch!")
+let funkMaster = "Yo dog my name is tom"
+let stringy = {
+  "document": {
+    "type": "PLAIN_TEXT",
+    "content": funkMaster,
+  },
+  "encodingType": "UTF8"
+}
 $.ajax({
   type:'POST',
   url:"https://language.googleapis.com/v1/documents:analyzeSyntax?key=AIzaSyDmNY9yZNIBbwL3-RydEpw_MHZNnxfDWRI",
-  data: stringy,
+  data: JSON.stringify(stringy),
+  contentType: 'application/json',
   dataType: "text",
-})
+}).done(function(data){
+            if (data) {
+                console.log(JSON.parse(data));
+                alert('SUCCESS');
+            }else{
+                alert('ERROR');
+            }
+        }
 
-    // success     : function(_result){
-    //         if (_result) {
-    //             alert('SUCCESS');
-    //         }else{
-    //             alert('ERROR');
-    //         }
-    //     },
-    //     error       : function(_result){
-    //         console.log(_result);
-    //     }
-    // });
+    );
 
 $.ajax({
   type: 'GET',
