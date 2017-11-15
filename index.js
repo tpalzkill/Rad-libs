@@ -48,21 +48,34 @@ let analyzeSyntax = function(string) {
   let wordRemover = function(string, array) {
     let sampleSplit = string.split(' ');
     chopped = [];
+    numbersChosen = [];
     for (let i=0; chopped.length<3; i++){
       console.log(i);
       let randoNumber = Math.floor(Math.random() * sampleSplit.length);
       if (array[randoNumber] === "NOUN" || array[randoNumber] === "ADJ" || array[randoNumber] === "VERB") {
         if (sampleSplit[randoNumber] != "SPLITHERE") {
         chopped.push(sampleSplit.splice(randoNumber, 1 ,'SPLITHERE'));
+        numbersChosen.push(randoNumber);
       }
       }
+
     }
+    console.log(numbersChosen);
+    function sortNumber(a,b) {
+      return a-b;
+    }
+    numbersChosen.sort(sortNumber);
+    numbersChosen.join(",");
+    console.log(numbersChosen);
     let rejoined = sampleSplit.join(' ');
     let splitatSplithere = rejoined.split('SPLITHERE');
         $("#segmentA").html(splitatSplithere[0]);
         $("#segmentB").html(splitatSplithere[1]);
         $("#segmentC").html(splitatSplithere[2]);
         $("#segmentD").html(splitatSplithere[3]);
+        $('#blankA').attr("placeholder", array[(numbersChosen[0])]);
+        $('#blankB').attr("placeholder", array[(numbersChosen[1])]);
+        $('#blankC').attr("placeholder", array[(numbersChosen[2])]);
         console.log(chopped);
         console.log(splitatSplithere);
         console.log(string);
@@ -104,10 +117,28 @@ let ronSwan = 'http://ron-swanson-quotes.herokuapp.com/v2/quotes';
     });
   };
 
-  let newForm = "<div class='section v-align-center z-depth-1 roundIt'><div class='container'><div class='row'><form class='getLibbed'><h3 class='lime-text text-darken-2 fun-text inline' id='segmentA'></h3><div class='input-field inline'><input type='textfield' class='responseField inline'></div><h3 id='segmentB' class='lime-text text-darken-2 fun-text inline'></h3><div class='input-field inline'><input type='textfield' class='responseField inline'></div><h3 class='lime-text text-darken-2 fun-text inline' id='segmentC'></h3><div class='input-field inline'><input type='textfield' class='responseField inline'></div><h3 class='lime-text text-darken-2 fun-text inline' id='segmentD'></h3><br><br><input type='submit' class='btn-large waves-effect fun-text pretty' value='submit'/></form></div></div>"
+  let newForm = "<div class='section v-align-center z-depth-1 roundIt'><div class='container'><div class='row'><form id='newForm' class='getLibbed'><h3 class='lime-text text-darken-2 fun-text inline' id='segmentA'></h3><div class='input-field inline'><input id='blankA' type='textfield' class='responseField inline'></div><h3 id='segmentB' class='lime-text text-darken-2 fun-text inline'></h3><div class='input-field inline'><input id='blankB' type='textfield' class='responseField inline'></div><h3 class='lime-text text-darken-2 fun-text inline' id='segmentC'></h3><div class='input-field inline'><input id='blankC' type='textfield' class='responseField inline'></div><h3 class='lime-text text-darken-2 fun-text inline' id='segmentD'></h3><br><br><input type='submit' id='finishHim' class='btn-large waves-effect fun-text pretty' value='submit'/></form></div></div>"
   // </div>"<div class='section v-align-center z-depth-1 roundIt'><div class='container'><div class='row'><div class='col-s10'><h3 class= 'lime-text text-darken-2 text-darken-2' id='quoteHere' ></h3></div></div></div></div>"
 
-  $("form").replaceWith(newForm);
+  $("#theOGform").replaceWith(newForm);
+  $("#finishHim").click(function(event){
+    event.preventDefault();
+    let ansA = $("#blankA").val();
+    let ansB = $("#blankB").val();
+    let ansC = $("#blankC").val();
+    let segA = $("#segmentA").text();
+    let segB = $("#segmentB").text();
+    let segC = $("#segmentC").text();
+    let segD = $("#segmentD").text();
+    console.log(ansA, ansB, ansC);
+    console.log(segA, segB, segC, segD);
+    let conCat = segA + " " + ansA + " " + segB + " " + ansB + " " + segC + " " + ansC + " " + segD;
+    console.log(conCat);
+    let final = "<h3 id='alas' class= 'red-text text-darken-2'></h3>"
+
+    $("#newForm").replaceWith(final);
+    $("#alas").html(conCat);
+  })
 }
 });
 // $.ajax({

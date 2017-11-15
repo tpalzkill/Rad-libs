@@ -18,8 +18,13 @@ font-family: Candara;
   background: linear-gradient(to right, #a8e063, #56ab2f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 .responseField {
+  text-align: center;
+  font-size: 150%;
+  font-family: Candara;
+  color: #afb42b;
   border: 2px solid #afb42b;
   height: 40px;
+  width: 80%;
   margin-left: 5px;
   margin-right: 5px;
 }
