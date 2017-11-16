@@ -69,9 +69,15 @@ let analyzeChopped = function(array) {
         typePush.forEach(function(element) {
           wordTypes.push(element.partOfSpeech.tag);
         })
-        $('#blankA').attr("placeholder", wordTypes[0]);
-        $('#blankB').attr("placeholder", wordTypes[1]);
-        $('#blankC').attr("placeholder", wordTypes[2]);
+
+        let notPunct = wordTypes.filter(function(word) {
+          if (word !== "PUNCT") {
+            return word;
+          }
+        });
+        $('#blankA').attr("placeholder", notPunct[0]);
+        $('#blankB').attr("placeholder", notPunct[1]);
+        $('#blankC').attr("placeholder", notPunct[2]);
     }
   })
 });
@@ -84,7 +90,15 @@ console.log(wordTypes);
     let sampleSplit = string.split(' ');
     chopped = [];
     numbersChosen = [];
+    let flag = 0;
     for (let i=0; chopped.length<3; i++){
+      if (i==20) {
+        flag++
+      }
+      if (flag>0) {
+        alert("api choose wrong");
+        break;
+      }
       let randoNumber = Math.floor(Math.random() * sampleSplit.length);
       if ((array[randoNumber] === "NOUN" || array[randoNumber] === "ADJ" || array[randoNumber] === "VERB") && ((sampleSplit[randoNumber]).length) > 3) {
         if (sampleSplit[randoNumber] != "SPLITHERE") {
@@ -149,18 +163,18 @@ let ronSwan = 'http://ron-swanson-quotes.herokuapp.com/v2/quotes';
     });
   };
 
-  let newForm = "<div class= 'section v-align-center z-depth-1 roundIt'><div class='container'><div class='row'><form id='newForm' class='getLibbed'><h3 class='lime-text text-darken-2 fun-text inline hide change' id='segmentA'></h3><div class='input-field inline'><input id='blankA' type='textfield' class='responseField inline'></div><h3 id='segmentB' class='change lime-text text-darken-2 fun-text inline hide'></h3><div class='input-field inline'><input id='blankB' type='textfield' class='responseField inline'></div><h3 class='lime-text text-darken-2 fun-text inline hide change' id='segmentC'></h3><div class='input-field inline'><input id='blankC' type='textfield' class='responseField inline'></div><h3 class='change lime-text text-darken-2 fun-text inline hide' id='segmentD'></h3><br><br><div><input type='checkbox' id='revealText'><label for='revealText'>Reveal Surrounding Text</label></div><input type='submit' id='finishHim' class='btn-large waves-effect submit-gradient' value='submit'></form></div></div>";
+  let newForm = "<div class= 'section v-align-center z-depth-4 roundIt'><div class='container'><div class='row'><form id='newForm' class='getLibbed'><h3 class='lime-text text-darken-2 fun-text inline hide change' id='segmentA'></h3><div class='input-field inline'><input id='blankA' type='textfield' class='responseField inline'></div><h3 id='segmentB' class='change lime-text text-darken-2 fun-text inline hide'></h3><div class='input-field inline'><input id='blankB' type='textfield' class='responseField inline'></div><h3 class='lime-text text-darken-2 fun-text inline hide change' id='segmentC'></h3><div class='input-field inline'><input id='blankC' type='textfield' class='responseField inline'></div><h3 class='change lime-text text-darken-2 fun-text inline hide' id='segmentD'></h3><br><br><div><input type='checkbox' id='revealText'><label for='revealText'>Reveal Surrounding Text</label></div><input type='submit' id='finishHim' class='btn-large waves-effect submit-gradient' value='submit'></form></div></div>";
 
 
 
   $("#theOGform").replaceWith(newForm);
   $('#revealText').change(function(){
-          if(this.checked) {
-              $('.change').removeClass('hide');
-            }
-          if(!this.checked) {
-            $('.change').hide();
-          }
+          // if(this.checked) {
+              $('.change').toggleClass('hide');
+            // }
+          // if(!this.checked) {
+          //   $('.change').hide();
+          // }
 
       });
 
@@ -174,10 +188,11 @@ let ronSwan = 'http://ron-swanson-quotes.herokuapp.com/v2/quotes';
     let segC = $("#segmentC").text();
     let segD = $("#segmentD").text();
     let conCat = segA + " " + ansA + " " + segB + " " + ansB + " " + segC + " " + ansC + " " + segD;
-    let final = "<h2>Your Take</h2><br><h3 id='alas' class= 'red-text text-darken-2'></h3><br><br><h2>Original Quote</h2><br><h3 id='originalQ' class='lime-text text-darken-2'><h3>"
+    let final = "<br><div class='container z-depth-1 roundIt youq'><h2 class='text-lighten-1'>Your Take:</h2><h4 id='alas' class= 'red-text text-lighten-2'></h4></div><br><div class='container z-depth-1 youq roundIt'</div><h2> Original Quote:</h2><h4 id='originalQ' class='lime-text text-darken-2'><h4></div><button id='makeCanvas' class='btn-lrg' value='Make Canvas'>"
     $("#newForm").replaceWith(final);
     $("#alas").html(conCat);
     $("#originalQ").html(theOriginalText[0]);
+
   })
 }
 });
