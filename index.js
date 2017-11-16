@@ -86,6 +86,12 @@ $("#btnGet").click(function(event) {
   event.preventDefault();
   let selectOption = $('#sourceSelector option:selected').text();
   if (selectOption !== "Choose your text source") {
+  if (selectOption === "Random") {
+    let reName = ["Trump Quote", "Inspirational Quote", "Dad Joke", "Ron Swanson Quote"];
+    let index = Math.floor(Math.random() * reName.length)
+    console.log(index);
+    selectOption = reName[index];
+  }
   if (selectOption === "Trump Quote") {
     let trumpApi = 'https://api.whatdoestrumpthink.com/api/v1/quotes/random';
     makeTheCall(trumpApi, function(data){
@@ -116,12 +122,17 @@ let ronSwan = 'http://ron-swanson-quotes.herokuapp.com/v2/quotes';
     });
   };
 
-  let newForm = "<div class='section v-align-center z-depth-1 roundIt'><div class='container'><div class='row'><form id='newForm' class='getLibbed'><h3 class='lime-text text-darken-2 fun-text inline hide nseek' id='segmentA'></h3><div class='input-field inline'><input id='blankA' type='textfield' class='responseField inline'></div><h3 id='segmentB' class='lime-text text-darken-2 fun-text inline hide'></h3><div class='input-field inline'><input id='blankB' type='textfield' class='responseField inline'></div><h3 class='lime-text text-darken-2 fun-text inline hide' id='segmentC'></h3><div class='input-field inline'><input id='blankC' type='textfield' class='responseField inline'></div><h3 class='lime-text text-darken-2 fun-text inline hide' id='segmentD'></h3><br><br><div><input type='checkbox' id='revealText'><label for='revealText'>Reveal Surrounding Text</label></div><input type='submit' id='finishHim' class='btn-large waves-effect submit-gradient' value='submit'/></form></div></div>"
+  let newForm = "<div class='section v-align-center z-depth-1 roundIt'><div class='container'><div class='row'><form id='newForm' class='getLibbed'><h3 class='lime-text text-darken-2 fun-text inline hide change' id='segmentA'></h3><div class='input-field inline'><input id='blankA' type='textfield' class='responseField inline'></div><h3 id='segmentB' class='change lime-text text-darken-2 fun-text inline hide'></h3><div class='input-field inline'><input id='blankB' type='textfield' class='responseField inline'></div><h3 class='lime-text text-darken-2 fun-text inline hide change' id='segmentC'></h3><div class='input-field inline'><input id='blankC' type='textfield' class='responseField inline'></div><h3 class='change lime-text text-darken-2 fun-text inline hide' id='segmentD'></h3><br><br><div><input type='checkbox' id='revealText'><label for='revealText'>Reveal Surrounding Text</label></div><input type='submit' id='finishHim' class='btn-large waves-effect submit-gradient' value='submit'/></form></div></div>";
 
-  $("#revealText").click(function(event){
-    $("h3").remove('hide');
-  })
+
+
   $("#theOGform").replaceWith(newForm);
+function valueChanged() {
+  if ($("#revealText").is(":checked")){
+    $("#segmentA").show();
+  };
+}
+$("#revealText").change(valueChanged());
   $("#finishHim").click(function(event){
     event.preventDefault();
     let ansA = $("#blankA").val();
