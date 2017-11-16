@@ -1,4 +1,4 @@
-
+let theOriginalText = [];
 // gets object from api the callback isolates the string from the object
 let makeTheCall = function(whorl, isolateString ) {
   let $xhr = $.getJSON(whorl);
@@ -52,15 +52,14 @@ let analyzeSyntax = function(string) {
     for (let i=0; chopped.length<3; i++){
       console.log(i);
       let randoNumber = Math.floor(Math.random() * sampleSplit.length);
-      if (array[randoNumber] === "NOUN" || array[randoNumber] === "ADJ" || array[randoNumber] === "VERB") {
+      if ((array[randoNumber] === "NOUN" || array[randoNumber] === "ADJ" || array[randoNumber] === "VERB") && ((sampleSplit[randoNumber]).length) > 3) {
         if (sampleSplit[randoNumber] != "SPLITHERE") {
         chopped.push(sampleSplit.splice(randoNumber, 1 ,'SPLITHERE'));
         numbersChosen.push(randoNumber);
       }
       }
-
     }
-    console.log(numbersChosen);
+
     function sortNumber(a,b) {
       return a-b;
     }
@@ -78,7 +77,7 @@ let analyzeSyntax = function(string) {
         $('#blankC').attr("placeholder", array[(numbersChosen[2])]);
         console.log(chopped);
         console.log(splitatSplithere);
-        console.log(string);
+        theOriginalText.push(string);
       }
 
 
@@ -117,9 +116,11 @@ let ronSwan = 'http://ron-swanson-quotes.herokuapp.com/v2/quotes';
     });
   };
 
-  let newForm = "<div class='section v-align-center z-depth-1 roundIt'><div class='container'><div class='row'><form id='newForm' class='getLibbed'><h3 class='lime-text text-darken-2 fun-text inline' id='segmentA'></h3><div class='input-field inline'><input id='blankA' type='textfield' class='responseField inline'></div><h3 id='segmentB' class='lime-text text-darken-2 fun-text inline'></h3><div class='input-field inline'><input id='blankB' type='textfield' class='responseField inline'></div><h3 class='lime-text text-darken-2 fun-text inline' id='segmentC'></h3><div class='input-field inline'><input id='blankC' type='textfield' class='responseField inline'></div><h3 class='lime-text text-darken-2 fun-text inline' id='segmentD'></h3><br><br><input type='submit' id='finishHim' class='btn-large waves-effect fun-text pretty' value='submit'/></form></div></div>"
-  // </div>"<div class='section v-align-center z-depth-1 roundIt'><div class='container'><div class='row'><div class='col-s10'><h3 class= 'lime-text text-darken-2 text-darken-2' id='quoteHere' ></h3></div></div></div></div>"
+  let newForm = "<div class='section v-align-center z-depth-1 roundIt'><div class='container'><div class='row'><form id='newForm' class='getLibbed'><h3 class='lime-text text-darken-2 fun-text inline hide nseek' id='segmentA'></h3><div class='input-field inline'><input id='blankA' type='textfield' class='responseField inline'></div><h3 id='segmentB' class='lime-text text-darken-2 fun-text inline hide'></h3><div class='input-field inline'><input id='blankB' type='textfield' class='responseField inline'></div><h3 class='lime-text text-darken-2 fun-text inline hide' id='segmentC'></h3><div class='input-field inline'><input id='blankC' type='textfield' class='responseField inline'></div><h3 class='lime-text text-darken-2 fun-text inline hide' id='segmentD'></h3><br><br><div><input type='checkbox' id='revealText'><label for='revealText'>Reveal Surrounding Text</label></div><input type='submit' id='finishHim' class='btn-large waves-effect submit-gradient' value='submit'/></form></div></div>"
 
+  $("#revealText").click(function(event){
+    $("h3").remove('hide');
+  })
   $("#theOGform").replaceWith(newForm);
   $("#finishHim").click(function(event){
     event.preventDefault();
@@ -134,13 +135,15 @@ let ronSwan = 'http://ron-swanson-quotes.herokuapp.com/v2/quotes';
     console.log(segA, segB, segC, segD);
     let conCat = segA + " " + ansA + " " + segB + " " + ansB + " " + segC + " " + ansC + " " + segD;
     console.log(conCat);
-    let final = "<h3 id='alas' class= 'red-text text-darken-2'></h3>"
-
+    let final = "<h3 id='alas' class= 'red-text text-darken-2'></h3><br><br><h2>Original Quote</h2><br><h3 id='originalQ' class='lime-text text-darken-2'><h3>"
     $("#newForm").replaceWith(final);
     $("#alas").html(conCat);
+    $("#originalQ").html(theOriginalText[0]);
+
   })
 }
 });
+console.log(theOriginalText);
 // $.ajax({
 //   type: 'GET',
 //   url:"https://cors-anywhere.herokuapp.com/od-api.oxforddictionaries.com:443/api/v1/entries/en/ace",

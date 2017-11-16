@@ -59,6 +59,9 @@ footer {
 background: -webkit-linear-gradient(to right, #283E51, #4B79A1);  /* Chrome 10-25, Safari 5.1-6 */
 background: linear-gradient(to right, #283E51, #4B79A1); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
+.submit-gradient {
+  background: linear-gradient(to right, #76b852, #8dc26f);
+}
 .linear-wipe {
   text-align: center;
 
