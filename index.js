@@ -1,5 +1,6 @@
 let theOriginalText = [];
 // gets object from api the callback isolates the string from the object
+
 let makeTheCall = function(whorl, isolateString ) {
   let $xhr = $.getJSON(whorl);
     $xhr.done(function(data) {
@@ -34,7 +35,6 @@ let analyzeSyntax = function(string) {
         allWordTypes.forEach(function(element) {
           wordType.push(element.partOfSpeech.tag);
         })
-        console.log("toSendToGoog wordType", wordType.toString());
         wordRemover(string, wordType);
 
       } else {
@@ -44,13 +44,47 @@ let analyzeSyntax = function(string) {
 
   );
 }
+let analyzeChopped = function(array) {
+  let wordTypes = [];
+  array.forEach(function(element){
+    let werd = element.toString();
+    let beamToGoog = {
+      "document": {
+        "type": "PLAIN_TEXT",
+        "content": werd,
+      },
+      "encodingType": "UTF8"
+    }
+    $.ajax({
+      type: 'POST',
+      url: "https://language.googleapis.com/v1/documents:analyzeSyntax?key=AIzaSyDmNY9yZNIBbwL3-RydEpw_MHZNnxfDWRI",
+      data: JSON.stringify(beamToGoog),
+      contentType: 'application/json',
+      dataType: "text",
+    }).done(function(data) {
+      if (data) {
+        let getTheJson = JSON.parse(data);
+        let objectified = Object.values(getTheJson);
+        let typePush = objectified[1];
+        typePush.forEach(function(element) {
+          wordTypes.push(element.partOfSpeech.tag);
+        })
+        $('#blankA').attr("placeholder", wordTypes[0]);
+        $('#blankB').attr("placeholder", wordTypes[1]);
+        $('#blankC').attr("placeholder", wordTypes[2]);
+    }
+  })
+});
+console.log(wordTypes);
+
+}
+
   //wordRemover
   let wordRemover = function(string, array) {
     let sampleSplit = string.split(' ');
     chopped = [];
     numbersChosen = [];
     for (let i=0; chopped.length<3; i++){
-      console.log(i);
       let randoNumber = Math.floor(Math.random() * sampleSplit.length);
       if ((array[randoNumber] === "NOUN" || array[randoNumber] === "ADJ" || array[randoNumber] === "VERB") && ((sampleSplit[randoNumber]).length) > 3) {
         if (sampleSplit[randoNumber] != "SPLITHERE") {
@@ -65,19 +99,14 @@ let analyzeSyntax = function(string) {
     }
     numbersChosen.sort(sortNumber);
     numbersChosen.join(",");
-    console.log(numbersChosen);
     let rejoined = sampleSplit.join(' ');
     let splitatSplithere = rejoined.split('SPLITHERE');
         $("#segmentA").html(splitatSplithere[0]);
         $("#segmentB").html(splitatSplithere[1]);
         $("#segmentC").html(splitatSplithere[2]);
         $("#segmentD").html(splitatSplithere[3]);
-        $('#blankA').attr("placeholder", array[(numbersChosen[0])]);
-        $('#blankB').attr("placeholder", array[(numbersChosen[1])]);
-        $('#blankC').attr("placeholder", array[(numbersChosen[2])]);
-        console.log(chopped);
-        console.log(splitatSplithere);
         theOriginalText.push(string);
+        analyzeChopped(chopped);
       }
 
 
@@ -89,14 +118,12 @@ $("#btnGet").click(function(event) {
   if (selectOption === "Random") {
     let reName = ["Trump Quote", "Inspirational Quote", "Dad Joke", "Ron Swanson Quote"];
     let index = Math.floor(Math.random() * reName.length)
-    console.log(index);
     selectOption = reName[index];
   }
   if (selectOption === "Trump Quote") {
     let trumpApi = 'https://api.whatdoestrumpthink.com/api/v1/quotes/random';
     makeTheCall(trumpApi, function(data){
       let trump = Object.values(data);
-      console.log(trump.toString());
       let trumpQuote = analyzeSyntax(trump[0]);
     });
 
@@ -122,17 +149,21 @@ let ronSwan = 'http://ron-swanson-quotes.herokuapp.com/v2/quotes';
     });
   };
 
-  let newForm = "<div class='section v-align-center z-depth-1 roundIt'><div class='container'><div class='row'><form id='newForm' class='getLibbed'><h3 class='lime-text text-darken-2 fun-text inline hide change' id='segmentA'></h3><div class='input-field inline'><input id='blankA' type='textfield' class='responseField inline'></div><h3 id='segmentB' class='change lime-text text-darken-2 fun-text inline hide'></h3><div class='input-field inline'><input id='blankB' type='textfield' class='responseField inline'></div><h3 class='lime-text text-darken-2 fun-text inline hide change' id='segmentC'></h3><div class='input-field inline'><input id='blankC' type='textfield' class='responseField inline'></div><h3 class='change lime-text text-darken-2 fun-text inline hide' id='segmentD'></h3><br><br><div><input type='checkbox' id='revealText'><label for='revealText'>Reveal Surrounding Text</label></div><input type='submit' id='finishHim' class='btn-large waves-effect submit-gradient' value='submit'/></form></div></div>";
+  let newForm = "<div class= 'section v-align-center z-depth-1 roundIt'><div class='container'><div class='row'><form id='newForm' class='getLibbed'><h3 class='lime-text text-darken-2 fun-text inline hide change' id='segmentA'></h3><div class='input-field inline'><input id='blankA' type='textfield' class='responseField inline'></div><h3 id='segmentB' class='change lime-text text-darken-2 fun-text inline hide'></h3><div class='input-field inline'><input id='blankB' type='textfield' class='responseField inline'></div><h3 class='lime-text text-darken-2 fun-text inline hide change' id='segmentC'></h3><div class='input-field inline'><input id='blankC' type='textfield' class='responseField inline'></div><h3 class='change lime-text text-darken-2 fun-text inline hide' id='segmentD'></h3><br><br><div><input type='checkbox' id='revealText'><label for='revealText'>Reveal Surrounding Text</label></div><input type='submit' id='finishHim' class='btn-large waves-effect submit-gradient' value='submit'></form></div></div>";
 
 
 
   $("#theOGform").replaceWith(newForm);
-function valueChanged() {
-  if ($("#revealText").is(":checked")){
-    $("#segmentA").show();
-  };
-}
-$("#revealText").change(valueChanged());
+  $('#revealText').change(function(){
+          if(this.checked) {
+              $('.change').removeClass('hide');
+            }
+          if(!this.checked) {
+            $('.change').hide();
+          }
+
+      });
+
   $("#finishHim").click(function(event){
     event.preventDefault();
     let ansA = $("#blankA").val();
@@ -142,30 +173,16 @@ $("#revealText").change(valueChanged());
     let segB = $("#segmentB").text();
     let segC = $("#segmentC").text();
     let segD = $("#segmentD").text();
-    console.log(ansA, ansB, ansC);
-    console.log(segA, segB, segC, segD);
     let conCat = segA + " " + ansA + " " + segB + " " + ansB + " " + segC + " " + ansC + " " + segD;
-    console.log(conCat);
-    let final = "<h3 id='alas' class= 'red-text text-darken-2'></h3><br><br><h2>Original Quote</h2><br><h3 id='originalQ' class='lime-text text-darken-2'><h3>"
+    let final = "<h2>Your Take</h2><br><h3 id='alas' class= 'red-text text-darken-2'></h3><br><br><h2>Original Quote</h2><br><h3 id='originalQ' class='lime-text text-darken-2'><h3>"
     $("#newForm").replaceWith(final);
     $("#alas").html(conCat);
     $("#originalQ").html(theOriginalText[0]);
-
   })
 }
 });
-console.log(theOriginalText);
-// $.ajax({
-//   type: 'GET',
-//   url:"https://cors-anywhere.herokuapp.com/od-api.oxforddictionaries.com:443/api/v1/entries/en/ace",
-//   headers: {
-//   "Accept": "application/json",
-//   "app_id": "bdfa8485",
-//   "app_key": "e5444a1719227d19ec9004e636ec775e",
-// },
-// }).done(function(data) {
-//   console.log(data);
-// });
+
+//
 //   let chopped = [];
 //   for (let i = 0; i < 3; i++) {
 //     let randomNumber = Math.floor(Math.random() * sampleSplit.length);
