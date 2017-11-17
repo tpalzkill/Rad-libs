@@ -96,7 +96,7 @@ console.log(wordTypes);
         flag++
       }
       if (flag>0) {
-        alert("api choose wrong");
+        alert("Uh-oh, looks like there weren't enough words in this text to pull out three words. Only fill in the blanks that have a word type!");
         break;
       }
       let randoNumber = Math.floor(Math.random() * sampleSplit.length);
@@ -188,7 +188,7 @@ let ronSwan = 'http://ron-swanson-quotes.herokuapp.com/v2/quotes';
     let segC = $("#segmentC").text();
     let segD = $("#segmentD").text();
     let conCat = segA + " " + ansA + " " + segB + " " + ansB + " " + segC + " " + ansC + " " + segD;
-    let final = "<br><div class='container z-depth-1 roundIt youq'><h2 class='text-lighten-1'>Your Take:</h2><h4 id='alas' class= 'red-text text-lighten-2'></h4></div><br><div class='container z-depth-1 youq roundIt'</div><h2> Original Quote:</h2><h4 id='originalQ' class='lime-text text-darken-2'><h4></div><button id='makeCanvas' class='btn-lrg' value='Make Canvas'>"
+    let final = "<br><div class='container z-depth-1 roundIt youq'><h2 class='text-lighten-1'>Your Take:</h2><h4 id='alas' class= 'red-text text-lighten-2'></h4></div><br><div class='container z-depth-1 youq roundIt'</div><h2> Original Quote:</h2><h4 id='originalQ' class='lime-text text-darken-2'><h4></div>"
     $("#newForm").replaceWith(final);
     $("#alas").html(conCat);
     $("#originalQ").html(theOriginalText[0]);

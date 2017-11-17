@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rad-Libs</title>
+</head>
+
+<body>
+  <header>
+    <div class="navbar-fixed">
+    <nav class="navagator" role="navigation">
+      <div class="nav-wrapper container"><a id="logo-container" href="landing.html" class="brand-logo lime-text font linear-wipe"><b>Rad-Libs</b></a>
+        <ul class="right hide-on-med-and-down">
+          <div class='stylistic container'><div class='a2a_kit a2a_kit_size_32 a2a_default_style'><a class='a2a_dd' href='https://www.addtoany.com/share'></a><a class='a2a_button_facebook'></a><a class='a2a_button_twitter'></a><a class='a2a_button_google_plus'></a></div></div><script async src='https://static.addtoany.com/menu/page.js'></script>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  </header>
+  <br><br><br><br><br><br>
+  <br>
+  <main>
+    <div class="section center">
+      <div id ="yomomma" class="container center">
+        <div class="row">
+          <form id='theOGform' class="col-s12 padder">
+            <div class="row">
+              <div class="input-field">
+                <select id='sourceSelector'>
+            <option class="black-text" value="default" disabled selected>Choose your text source</option>
+            <option value="Random">Random</option>
+            <option value="inspiration" >Inspirational Quote</option>
+            <option value="dad">Dad Joke</option>
+            <option value="ronSwan">Ron Swanson Quote</option>
+            <option value="Trump">Trump Quote</option>
+          </select>
+          <br>
+              <input type="submit" id="btnGet" class="btn-large waves-effect font pretty" value="Get RadLib"/>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+  <br><br><br><br><br><br>
+  <footer>
+    <div class="section">
+      <div class="container footer">
+        <h5 class="footer lime-text text-lighten-2 center font"> RAD - LIBS </h5>
+        <p class="shamelessPlug lime-text text-lighten-4 center"> Created by: YA boy TP</p>
+      </div>
+    </div>
+  </footer>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="index.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="html2canvas.js"></script>
+  <link href="stylesheet.css" type="text/css" rel="stylesheet" />
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('select').material_select();
+    });
+  </script>
+</body>
+
+</html>
+<!-- <div class="container">
+  <div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="select-wrapper col s4">
+          <select name="source">
+            <option value="Trump"> Trump Quote</option>
+            <option value="Dad"> Dad joke</option>
+            <option value="Random"> Random</option>
+          </select>
+        </div>
+      </div>
+    </form>
+</div> -->
