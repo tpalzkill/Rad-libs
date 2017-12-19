@@ -12,7 +12,7 @@ let makeTheCall = function(whorl, isolateString) {
 }
 // analyzeSyntax takes in a string and splits out all the punctutation, sends the sentence to nlApi and
 let analyzeSyntax = function(string) {
-  let quote = string.split('.').join(' ').split('?').join(' ').split('!').join(' ').split('  ').join(' ');
+  let quote = string.split('.').join(' ').split('?').join(' ').split('!').join(' ').split(',').join(' ').split('  ').join(' ');
   let wordType = [];
   let toSendToGoog = {
     "document": {
@@ -69,9 +69,8 @@ let analyzeChopped = function(array) {
         typePush.forEach(function(element) {
           wordTypes.push(element.partOfSpeech.tag);
         })
-
         let notPunct = wordTypes.filter(function(word) {
-          if (word !== "PUNCT") {
+          if (word !== "PUNCT" || word !== "X" || word !== "DET" || word !== "PRT") {
             return word;
           }
         });
@@ -81,8 +80,6 @@ let analyzeChopped = function(array) {
       }
     })
   });
-  console.log(wordTypes);
-
 }
 
 //wordRemover
